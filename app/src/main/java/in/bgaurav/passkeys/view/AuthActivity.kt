@@ -12,6 +12,10 @@ import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import `in`.bgaurav.passkeys.R
 import `in`.bgaurav.passkeys.databinding.ActivityMainBinding
+import `in`.bgaurav.passkeys.network.ApiClient
+import `in`.bgaurav.passkeys.network.ApiService
+import `in`.bgaurav.passkeys.repository.AuthRepository
+import `in`.bgaurav.passkeys.repository.AuthRepositoryImpl
 import `in`.bgaurav.passkeys.viewmodel.AuthViewModel
 
 class AuthActivity : AppCompatActivity() {

@@ -1,6 +1,7 @@
 package `in`.bgaurav.passkeys.network
 
-import `in`.bgaurav.passkeys.model.AuthLoginResponse
+import `in`.bgaurav.passkeys.model.AuthRequest
+import `in`.bgaurav.passkeys.model.AuthResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -19,5 +20,11 @@ interface ApiService {
 //    fun loginFinish(@Body authModel: AuthModel): Call<JsonObject>
 
     @POST("api/auth/login")
-    fun login(@Body email: String, @Body password: String): Response<AuthLoginResponse>
+    suspend fun login(@Body authRequest: AuthRequest): Response<AuthResponse>
+
+    @POST("api/auth/register")
+    suspend fun register(@Body authRequest: AuthRequest): Response<AuthResponse>
+
+    @POST("api/auth/verify-otp")
+    suspend fun verifyOtp(@Body authRequest: AuthRequest): Response<AuthResponse>
 }

@@ -51,4 +51,5 @@ dependencies {
 
     implementation(libs.retrofit2.retrofit)
     implementation(libs.retrofit2.converter.gson)
+    implementation(libs.retrofit2.kotlin.coroutines.adapter)
 }

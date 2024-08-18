@@ -1,8 +1,9 @@
 package `in`.bgaurav.passkeys.repository
 
-import `in`.bgaurav.passkeys.model.AuthLoginResponse
-import `in`.bgaurav.passkeys.model.UserModel
+import `in`.bgaurav.passkeys.model.AuthResponse
 
 interface AuthRepository {
-    suspend fun login(email: String, password: String): Result<AuthLoginResponse>
+    suspend fun login(email: String, password: String): AuthResponse
+    suspend fun register(firstName: String, lastName: String, email: String, password: String): AuthResponse
+    suspend fun verifyOtp(email: String, otp: String): AuthResponse
 }

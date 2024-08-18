@@ -1,13 +1,16 @@
 package `in`.bgaurav.passkeys.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import `in`.bgaurav.passkeys.R
 import `in`.bgaurav.passkeys.databinding.FragmentAuthLoginBinding
 import `in`.bgaurav.passkeys.viewmodel.AuthViewModel
@@ -56,6 +59,36 @@ class AuthLoginFragment : Fragment() {
                 }
             }
         }
+
+        binding.submitButton.setOnClickListener {
+            viewModel.login(binding.emailEditText.text.toString(), binding.passwordEditText.text.toString())
+        }
+
+        viewModel.loginState.observe(viewLifecycleOwner) {
+            Log.d("GB", it.toString())
+            when (it) {
+                is AuthViewModel.LoginState.Idle -> {
+
+                }
+                is AuthViewModel.LoginState.Loading -> {
+
+                }
+                is AuthViewModel.LoginState.Error -> {
+                    showErrorSnackbar(requireView(), it.message)
+                }
+                is AuthViewModel.LoginState.Success -> {
+//                    findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+                    viewModel.resetLoginState()
+                }
+            }
+        }
+    }
+
+    private fun showErrorSnackbar(view: View, message: String) {
+        val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
+        snackbar.setBackgroundTint(ContextCompat.getColor(view.context, R.color.gray))
+        snackbar.setTextColor(ContextCompat.getColor(view.context, R.color.white))
+        snackbar.show()
     }
 
     override fun onDestroyView() {
