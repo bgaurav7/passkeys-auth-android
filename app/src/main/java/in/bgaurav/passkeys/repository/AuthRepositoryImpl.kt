@@ -7,8 +7,8 @@ import `in`.bgaurav.passkeys.network.ApiService
 
 class AuthRepositoryImpl(private val apiService: ApiService) : AuthRepository {
 
-    override suspend fun login(email: String, password: String): AuthResponse {
-        val response = apiService.login(AuthRequest(email = email, password = password))
+    override suspend fun loginPassword(email: String, password: String): AuthResponse {
+        val response = apiService.loginPassword(AuthRequest(email = email, password = password))
         Log.e("GB",
             "AuthRepositoryImpl login: " + "isSuccessful=" + response.isSuccessful + " body=" + response.body() + "" + "code=" + response.code() + " message=" + response.message() + " errorBody=" + response.errorBody()
                 .toString() + " raw=" + response.raw()
@@ -20,13 +20,13 @@ class AuthRepositoryImpl(private val apiService: ApiService) : AuthRepository {
         }
     }
 
-    override suspend fun register(
+    override suspend fun registerPassword(
         firstName: String,
         lastName: String,
         email: String,
         password: String
     ): AuthResponse {
-        val response = apiService.register(AuthRequest(firstName = firstName, lastName = lastName, email = email, password = password))
+        val response = apiService.registerPassword(AuthRequest(firstName = firstName, lastName = lastName, email = email, password = password))
         Log.e("GB",
             "AuthRepositoryImpl register: " + "isSuccessful=" + response.isSuccessful + " body=" + response.body() + "" + "code=" + response.code() + " message=" + response.message() + " errorBody=" + response.errorBody()
                 .toString() + " raw=" + response.raw()

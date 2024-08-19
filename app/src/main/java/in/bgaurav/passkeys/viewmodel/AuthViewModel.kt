@@ -14,6 +14,8 @@ import kotlinx.coroutines.launch
 
 class AuthViewModel() : ViewModel() {
 
+    private val TAG = AuthViewModel::class.java.simpleName
+
     private val authRepository: AuthRepository = AuthRepositoryImpl(ApiClient.apiService)
 
     sealed class AuthTypeState {
@@ -44,7 +46,7 @@ class AuthViewModel() : ViewModel() {
 
     private val loginExceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
         throwable.message?.let {
-            Log.d("GB", "AuthViewModel loginExceptionHandler: $it")
+            Log.d(TAG, "AuthViewModel loginExceptionHandler: $it")
             _loginState.value = LoginState.Error(it)
         }
     }
@@ -53,9 +55,9 @@ class AuthViewModel() : ViewModel() {
         viewModelScope.launch(loginExceptionHandler) {
             _loginState.value = LoginState.Loading
 
-            val result = authRepository.login(email, password)
+            val result = authRepository.loginPassword(email, password)
 
-            Log.d("GB", "AuthViewModel loginResult: $result")
+            Log.d(TAG, "AuthViewModel loginResult: $result")
             if(result.status) {
                 _loginState.value = LoginState.Success(result.data)
             } else {
@@ -81,7 +83,7 @@ class AuthViewModel() : ViewModel() {
 
     private val registerExceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
         throwable.message?.let {
-            Log.d("GB", "AuthViewModel registerExceptionHandler: $it")
+            Log.d(TAG, "AuthViewModel registerExceptionHandler: $it")
             _registerState.value = RegisterState.Error(it)
         }
     }
@@ -90,9 +92,9 @@ class AuthViewModel() : ViewModel() {
         viewModelScope.launch(registerExceptionHandler) {
             _registerState.value = RegisterState.Loading
 
-            val result = authRepository.register(firstName, lastName, email, password)
+            val result = authRepository.registerPassword(firstName, lastName, email, password)
 
-            Log.d("GB", "AuthViewModel registerResult: $result")
+            Log.d(TAG, "AuthViewModel registerResult: $result")
             if(result.status) {
                 _registerState.value = RegisterState.RegisterSuccess(result.data)
             } else {
@@ -107,7 +109,7 @@ class AuthViewModel() : ViewModel() {
 
             val result = authRepository.verifyOtp(email, otp)
 
-            Log.d("GB", "AuthViewModel verifyOtp: $result")
+            Log.d(TAG, "AuthViewModel verifyOtp: $result")
             if(result.status) {
                 _registerState.value = RegisterState.VerificationSuccess
             } else {
@@ -121,7 +123,7 @@ class AuthViewModel() : ViewModel() {
     }
 
     init {
-        _authTypeState.value = AuthTypeState.Password
+        _authTypeState.value = AuthTypeState.Passkey
         _loginState.value = LoginState.Idle
         _registerState.value = RegisterState.Idle
     }

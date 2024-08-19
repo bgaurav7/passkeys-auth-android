@@ -12,7 +12,6 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import `in`.bgaurav.passkeys.R
@@ -23,6 +22,8 @@ import `in`.bgaurav.passkeys.viewmodel.AuthViewModel
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class AuthRegisterFragment : Fragment() {
+
+    private val TAG = AuthRegisterFragment::class.java.simpleName
 
     private var _binding: FragmentAuthRegisterBinding? = null
 
@@ -65,7 +66,7 @@ class AuthRegisterFragment : Fragment() {
         }
 
         viewModel.registerState.observe(viewLifecycleOwner) {
-            Log.d("GB", it.toString())
+            Log.d(TAG, "View registerState $it")
             when (it) {
                 is AuthViewModel.RegisterState.Idle -> {
 
@@ -74,10 +75,10 @@ class AuthRegisterFragment : Fragment() {
 
                 }
                 is AuthViewModel.RegisterState.Error -> {
-                    showErrorSnackbar(requireView(), it.message)
+                    showErrorUi(requireView(), it.message)
                 }
                 is AuthViewModel.RegisterState.RegisterSuccess -> {
-                    showEditTextDialog(requireContext(), onTextEntered = {
+                    showOtpDialog(requireContext(), onTextEntered = {
                         viewModel.verifyOtp(binding.emailEditText.text.toString(), it)
                     })
                 }
@@ -89,7 +90,7 @@ class AuthRegisterFragment : Fragment() {
         }
     }
 
-    fun showEditTextDialog(context: Context, onTextEntered: (String) -> Unit) {
+    private fun showOtpDialog(context: Context, onTextEntered: (String) -> Unit) {
         val builder = AlertDialog.Builder(context)
             .setTitle("OTP Verification")
             .setMessage("Please enter one time password received on your email.")
@@ -108,11 +109,11 @@ class AuthRegisterFragment : Fragment() {
             .show()
     }
 
-    private fun showErrorSnackbar(view: View, message: String) {
-        val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
-        snackbar.setBackgroundTint(ContextCompat.getColor(view.context, R.color.gray))
-        snackbar.setTextColor(ContextCompat.getColor(view.context, R.color.white))
-        snackbar.show()
+    private fun showErrorUi(view: View, message: String) {
+        val sBar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
+        sBar.setBackgroundTint(ContextCompat.getColor(view.context, R.color.gray))
+        sBar.setTextColor(ContextCompat.getColor(view.context, R.color.white))
+        sBar.show()
     }
 
     override fun onDestroyView() {

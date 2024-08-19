@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import `in`.bgaurav.passkeys.R
@@ -21,6 +20,8 @@ import `in`.bgaurav.passkeys.viewmodel.AuthViewModel
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class AuthLoginFragment : Fragment() {
+
+    private val TAG = AuthLoginFragment::class.java.simpleName
 
     private var _binding: FragmentAuthLoginBinding? = null
 
@@ -67,7 +68,7 @@ class AuthLoginFragment : Fragment() {
         }
 
         viewModel.loginState.observe(viewLifecycleOwner) {
-            Log.d("GB", it.toString())
+            Log.d(TAG, "View loginState $it")
             when (it) {
                 is AuthViewModel.LoginState.Idle -> {
 

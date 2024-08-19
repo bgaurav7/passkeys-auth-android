@@ -19,12 +19,13 @@ interface ApiService {
 //    @POST("login/finish")
 //    fun loginFinish(@Body authModel: AuthModel): Call<JsonObject>
 
-    @POST("api/auth/login")
-    suspend fun login(@Body authRequest: AuthRequest): Response<AuthResponse>
+    @POST("api/auth/login-password")
+    suspend fun loginPassword(@Body authRequest: AuthRequest): Response<AuthResponse>
 
-    @POST("api/auth/register")
-    suspend fun register(@Body authRequest: AuthRequest): Response<AuthResponse>
+    @POST("api/auth/register-password")
+    suspend fun registerPassword(@Body authRequest: AuthRequest): Response<AuthResponse>
 
     @POST("api/auth/verify-otp")
     suspend fun verifyOtp(@Body authRequest: AuthRequest): Response<AuthResponse>
+    
 }
