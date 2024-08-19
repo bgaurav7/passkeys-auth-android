@@ -15,11 +15,6 @@
         android:theme="@style/Theme.Passkeys"
         tools:targetApi="31">
         <activity
-            android:name=".view.BookActivity"
-            android:exported="false"
-            android:label="@string/title_activity_book"
-            android:theme="@style/Theme.Passkeys.NoActionBar" />
-        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Splash">
@@ -32,7 +27,12 @@
         <activity
             android:name=".view.AuthActivity"
             android:exported="true"
-            android:theme="@style/Theme.Passkeys"></activity>
+            android:theme="@style/Theme.Passkeys" />
+        <activity
+            android:name=".view.BookActivity"
+            android:exported="false"
+            android:label="@string/title_activity_book"
+            android:theme="@style/Theme.Passkeys.NoActionBar" />
     </application>
 
 </manifest>
