@@ -1,6 +1,7 @@
 package `in`.bgaurav.passkeys.view
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -16,6 +17,7 @@ import `in`.bgaurav.passkeys.network.ApiClient
 import `in`.bgaurav.passkeys.network.ApiService
 import `in`.bgaurav.passkeys.repository.AuthRepository
 import `in`.bgaurav.passkeys.repository.AuthRepositoryImpl
+import `in`.bgaurav.passkeys.utility.DataProvider
 import `in`.bgaurav.passkeys.viewmodel.AuthViewModel
 
 class AuthActivity : AppCompatActivity() {

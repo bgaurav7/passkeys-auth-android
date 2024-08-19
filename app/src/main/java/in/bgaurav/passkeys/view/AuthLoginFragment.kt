@@ -1,5 +1,6 @@
 package `in`.bgaurav.passkeys.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import `in`.bgaurav.passkeys.R
 import `in`.bgaurav.passkeys.databinding.FragmentAuthLoginBinding
+import `in`.bgaurav.passkeys.utility.DataProvider
 import `in`.bgaurav.passkeys.viewmodel.AuthViewModel
 
 /**
@@ -77,7 +79,8 @@ class AuthLoginFragment : Fragment() {
                     showErrorSnackbar(requireView(), it.message)
                 }
                 is AuthViewModel.LoginState.Success -> {
-//                    findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+                    DataProvider.setSignedInThroughPassword()
+                    startActivity(Intent(requireContext(), BookActivity::class.java))
                     viewModel.resetLoginState()
                 }
             }

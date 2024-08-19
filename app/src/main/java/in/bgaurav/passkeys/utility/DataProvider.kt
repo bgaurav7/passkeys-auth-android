@@ -19,15 +19,27 @@ object DataProvider {
     }
 
     //Set if the user is signed in or not
-    fun configureSignedInPref(flag: Boolean) {
+    private fun configureSignedInPref(flag: Boolean) {
         editor.putBoolean(IS_SIGNED_IN, flag)
         editor.commit()
     }
 
-    //Set if signed in through passkeys or not
-    fun setSignedInThroughPasskeys(flag: Boolean) {
-        editor.putBoolean(IS_SIGNED_IN_THROUGH_PASSKEYS, flag)
+    //Set if signed in through passkeys
+    fun setSignedInThroughPasskeys() {
+        configureSignedInPref(true)
+        editor.putBoolean(IS_SIGNED_IN_THROUGH_PASSKEYS, true)
         editor.commit()
+    }
+
+    //Set if signed in through password
+    fun setSignedInThroughPassword() {
+        configureSignedInPref(true)
+        editor.putBoolean(IS_SIGNED_IN_THROUGH_PASSKEYS, false)
+        editor.commit()
+    }
+
+    fun logout() {
+        configureSignedInPref(false)
     }
 
     fun isSignedIn(): Boolean {
