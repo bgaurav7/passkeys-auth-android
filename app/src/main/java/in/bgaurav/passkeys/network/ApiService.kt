@@ -7,17 +7,6 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface ApiService {
-//    @POST("register/start")
-//    fun registerStart(@Body authModel: AuthModel): Call<JsonObject>
-//
-//    @POST("register/finish")
-//    fun registerFinish(@Body authModel: AuthModel): Call<JsonObject>
-//
-//    @POST("login/start")
-//    fun loginStart(@Body authModel: AuthModel): Call<JsonObject>
-//
-//    @POST("login/finish")
-//    fun loginFinish(@Body authModel: AuthModel): Call<JsonObject>
 
     @POST("api/auth/login-password")
     suspend fun loginPassword(@Body authRequest: AuthRequest): Response<AuthResponse>
@@ -25,7 +14,19 @@ interface ApiService {
     @POST("api/auth/register-password")
     suspend fun registerPassword(@Body authRequest: AuthRequest): Response<AuthResponse>
 
-    @POST("api/auth/verify-otp")
-    suspend fun verifyOtp(@Body authRequest: AuthRequest): Response<AuthResponse>
-    
+    @POST("api/auth/register-verify-password")
+    suspend fun registerVerifyPassword(@Body authRequest: AuthRequest): Response<AuthResponse>
+
+    @POST("api/auth/login-passkeys")
+    suspend fun loginPasskeys(@Body authRequest: AuthRequest): Response<AuthResponse>
+
+    @POST("api/auth/login-verify-passkeys")
+    suspend fun loginVerifyPasskeys(@Body authRequest: AuthRequest): Response<AuthResponse>
+
+    @POST("api/auth/register-passkeys")
+    suspend fun registerPasskeys(@Body authRequest: AuthRequest): Response<AuthResponse>
+
+    @POST("api/auth/register-verify-passkeys")
+    suspend fun registerVerifyPasskeys(@Body authRequest: AuthRequest): Response<AuthResponse>
+
 }
